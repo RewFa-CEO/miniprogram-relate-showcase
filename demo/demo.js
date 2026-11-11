@@ -14,11 +14,11 @@
     return
   }
 
-  var STYLE_KEYS = Object.keys(R.aiBank.style.reduce(function (acc, q) {
+  var STYLE_KEYS = Object.keys(R.ai_bank.style.reduce(function (acc, q) {
     acc[q.key] = 1
     return acc
   }, {}))
-  var NEED_KEYS = Object.keys(R.aiBank.need.reduce(function (acc, q) {
+  var NEED_KEYS = Object.keys(R.ai_bank.need.reduce(function (acc, q) {
     acc[q.key] = 1
     return acc
   }, {}))
