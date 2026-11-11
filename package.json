@@ -1,0 +1,21 @@
+{
+  "name": "miniprogram-relate-showcase",
+  "version": "1.0.0",
+  "description": "认识 TA · 关系测评小程序 —— 公开切片：3D 投影引擎 + 计分核心 + 双人对照算法",
+  "license": "MIT",
+  "private": false,
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node --test test/",
+    "build:demo": "node scripts/build-demo.cjs",
+    "demo": "npm run build:demo && node scripts/serve-demo.cjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "src",
+    "LICENSE",
+    "README.md"
+  ]
+}

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>认识 TA · 公开切片演示</title>
+<style>
+  :root {
+    --paper: #EFEAE2;
+    --tint: #E3DCD0;
+    --edge: #DCD5C7;
+    --rule: #C9C1B0;
+    --ink: #1B1A18;
+    --ink2: #6A675F;
+    --ink3: #9B968C;
+    --self: #C4352A;
+    --other: #14756A;
+    --self-soft: #FAEAE6;
+    --other-soft: #E4F0EC;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 28px 20px 48px;
+    background: #2A2926;
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; }
+  header { color: #EFEAE2; margin-bottom: 22px; }
+  header h1 { margin: 0 0 6px; font-size: 22px; letter-spacing: .04em; }
+  header p { margin: 0; color: #B9B2A6; font-size: 13px; }
+  header a { color: #8FC7BC; }
+  .grid { display: grid; grid-template-columns: 1.35fr .95fr; gap: 18px; align-items: start; }
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--edge);
+    border-radius: 3px;
+    padding: 16px 18px;
+  }
+  .card h2 {
+    margin: 0 0 10px;
+    font-size: 12px;
+    letter-spacing: .18em;
+    color: var(--ink2);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 7px;
+  }
+  canvas { display: block; width: 100%; background: var(--paper); cursor: grab; touch-action: none; }
+  canvas:active { cursor: grabbing; }
+  .hint { margin: 8px 0 0; font-size: 12px; color: var(--ink3); }
+  .who { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; font-size: 13px; }
+  .who span { padding: 2px 9px; border-radius: 2px; }
+  .who .a { background: var(--self-soft); color: var(--self); }
+  .who .b { background: var(--other-soft); color: var(--other); }
+  .axis { margin: 12px 0 0; }
+  .axis .row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; font-size: 12.5px; }
+  .axis .lab { flex: 0 0 62px; color: var(--ink2); }
+  .axis .track { position: relative; flex: 1 1 auto; height: 22px; background: var(--tint); border-radius: 2px; }
+  .axis .span { position: absolute; top: 0; bottom: 0; background: rgba(196,53,42,.13); border-left: 1px solid var(--self); border-right: 1px solid var(--other); }
+  .axis .pt { position: absolute; top: 4px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; }
+  .axis .pt.a { background: var(--self); }
+  .axis .pt.b { background: var(--other); }
+  .axis .gap { flex: 0 0 52px; text-align: right; color: var(--ink2); font-variant-numeric: tabular-nums; }
+  .meta { margin: 12px 0 0; font-size: 12.5px; color: var(--ink2); }
+  .meta b { color: var(--ink); }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin-top: 10px; font-size: 12.5px; }
+  .kv dt { color: var(--ink2); }
+  .kv dd { margin: 0; font-variant-numeric: tabular-nums; }
+  footer { margin-top: 24px; color: #8C8579; font-size: 12px; }
+  footer a { color: #8FC7BC; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>认识 TA · 公开切片</h1>
+    <p>这是完整应用公开出来的<strong>算法层</strong>：3D 投影引擎、题库计分、双人对照。
+       下面这一页跑的就是仓库 <code>src/</code> 里的同一份代码，没有改写、没有 mock。
+       应用外壳、云函数、AI 编排与知识库全文不在公开范围内。</p>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h2>3D 叠尺 · 双人同轴对照</h2>
+      <div class="who">
+        <span class="a">本人 · ESTJ</span>
+        <span class="b">对方 · INFP</span>
+      </div>
+      <canvas id="c" width="640" height="440"></canvas>
+      <p class="hint">拖动可旋转（Canvas 2D 手写 3D 投影，零依赖、无 WebGL）。四条轨 = 精力方向 / 信息偏好 / 决策依据 / 生活秩序。</p>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>同一条尺上的两个位置</h2>
+        <div id="axes"></div>
+        <div class="meta" id="summary"></div>
+      </div>
+
+      <div class="card" style="margin-top:18px">
+        <h2>结构化对照 · 可解释规则</h2>
+        <dl class="kv" id="dims"></dl>
+        <div class="meta" id="tone"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    源码 MIT 开源 · <a href="https://github.com/RewFa-CEO/miniprogram-relate-showcase">github.com/RewFa-CEO/miniprogram-relate-showcase</a>
+    · 切片边界见仓库 <code>docs/SLICE.md</code>
+  </footer>
+</div>
+
+<script src="./bundle.js"></script>
+<script src="./demo.js"></script>
+</body>
+</html>
